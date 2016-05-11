@@ -1,6 +1,3 @@
-ECE391 MP3 - Operating System Project
-=====================================
-
 To get this skeleton OS running on QEMU, you must do the following steps:
 
 "make dep"
