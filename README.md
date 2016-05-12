@@ -1,4 +1,4 @@
-![gyaradOS](http://i.imgur.com/keh86ho.png)
+![gyaradOS](http://i.imgur.com/pAnzXzc.png)
 
 # Features
 * GRUB multiboot compliant bootloader
@@ -13,5 +13,6 @@
 * Full-featured shell with tab autocompletion, clear, and more
 
 # Screenshots
-![cat](http://i.imgur.com/3cO20Yj.png)
-![ls](https://i.imgur.com/urqRdRN.png)
+![grep](http://i.imgur.com/MUkjJ2e.png)
+![ls](http://i.imgur.com/2huYQ76.png)
+![fish](http://i.imgur.com/hBcEpk7.png)
