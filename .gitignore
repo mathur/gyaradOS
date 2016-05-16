@@ -1,8 +1,8 @@
 # our stuff
 .svn
-student-distrib/bootimg
-student-distrib/mp3.img
-student-distrib/Makefile.dep
+bootimg
+mp3.img
+Makefile.dep
 
 # Object files
 *.o

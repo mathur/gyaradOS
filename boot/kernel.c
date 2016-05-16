@@ -7,7 +7,6 @@
 #include <drivers/pit.h>
 #include <drivers/rtc.h>
 #include <drivers/speaker.h>
-#include <drivers/sound_blaster_16.h>
 #include <lib/lib.h>
 #include <boot/multiboot.h>
 #include <boot/x86_desc.h>
@@ -31,8 +30,7 @@ void entry (unsigned long magic, unsigned long addr) {
 	clear();
 
 	/* Am I booted by a Multiboot-compliant boot loader? */
-	if (magic != MULTIBOOT_BOOTLOADER_MAGIC)
-	{
+	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
 		printf ("Invalid magic number: 0x%#x\n", (unsigned) magic);
 		return;
 	}
@@ -209,12 +207,6 @@ void entry (unsigned long magic, unsigned long addr) {
 
 	/* Enable mouse */
 	mouse_init();
-
-	enable_irq(IRQ_PARLL_PRT_SND);
-
-	init_sound_blaster();
-
-	sound_blaster_play_test();
 
 	/* Initialize filesystem */
 	fs_init(fs_start);
