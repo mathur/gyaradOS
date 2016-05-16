@@ -6,6 +6,9 @@
 #include <kernel/syscall.h>
 #include <drivers/keyboard.h>
 
+// Scheduling enabled or not
+#define SCHED_ENABLED   0
+
 // PIT IRQ line
 #define IRQ_PIT         0
 

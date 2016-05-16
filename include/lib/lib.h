@@ -31,8 +31,6 @@
 
 #define NUM_TERMINALS           3
 
-#define SCHED_ENABLED           0
-
 #define RED                  0x04
 #define GREEN                0x0A
 #define YELLOW               0x0E

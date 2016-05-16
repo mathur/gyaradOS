@@ -88,16 +88,16 @@ int32_t halt (uint8_t status) {
     switch_pd(prev_proc[curr_active_term]->proc_num, prev_proc[curr_active_term]->base);
     tss.esp0 = _8MB - (_8KB) * prev_proc[curr_active_term]->proc_num - 4;
 
-    // stack switch
-    asm volatile("movl %0, %%esp"::"g"(proc_ctrl_blk->p_ksp));
-    asm volatile("movl %0, %%ebp"::"g"(proc_ctrl_blk->p_kbp));
-
     // swap the pcbs correctly
     curr_proc[curr_active_term] = prev_proc[curr_active_term];
     prev_proc[curr_active_term] = (pcb_t *) prev_proc[curr_active_term]->prev;
 
     // restore the processor flags
     restore_flags(flags);
+
+    // stack switch
+    asm volatile("movl %0, %%esp"::"g"(proc_ctrl_blk->p_ksp));
+    asm volatile("movl %0, %%ebp"::"g"(proc_ctrl_blk->p_kbp));
 
     // jump to the end of execute to return to the interrupt handler
     asm volatile("jmp EXECUTE_EXIT");
@@ -239,9 +239,6 @@ int32_t execute (const uint8_t * command) {
     proc_ctrl_blk->fds[1].operations_pointer = stdout_ops_table;
     proc_ctrl_blk->fds[1].inode = NULL;
     proc_ctrl_blk->fds[1].flags = IN_USE;
-
-    // add meta information to the pcb about the process
-    // strcpy(proc_ctrl_blk->proc_name, f_name);
 
     // set pcbs correctly
     prev_proc[curr_active_term] = curr_proc[curr_active_term];
@@ -503,27 +500,4 @@ uint8_t get_next_running_term_proc() {
 void set_running_proc(uint8_t proc) {
     curr_active_term = proc;
     return;
-}
-
-/*
- * Thanks to: https://sourceware.org/newlib/libc.html#Syscalls
- *     (Red Hat Minimal Implementation)
- * And to: http://code.metager.de/source/xref/hurd/viengoos/libhurd-mm/sbrk.c
- *     (GNU Hurd Implementation)
- */
-void * sbrk(uint32_t nbytes) {
-    static void * heap_ptr = NULL;
-    void * base;
-
-    if (heap_ptr == NULL) {
-        heap_ptr = (void *)&_end;
-    }
-
-    if ((RAMSIZE - heap_ptr) >= 0) {
-        base = heap_ptr;
-        heap_ptr += nbytes;
-        return (base);
-    } else {
-        return ((void *)-1);
-    }
 }

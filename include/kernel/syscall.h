@@ -76,8 +76,6 @@ extern uint8_t get_curr_running_term_proc();
 extern uint8_t get_next_running_term_proc();
 extern void context_switch(uint8_t curr_proc_term_num, uint8_t next_proc_term_num);
 
-extern void * sbrk(uint32_t nbytes);
-
 /* _end is set in the linker command file */
 extern void * _end;
 

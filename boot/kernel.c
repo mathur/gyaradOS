@@ -97,8 +97,7 @@ void entry (unsigned long magic, unsigned long addr) {
 	}
 
 	/* Are mmap_* valid? */
-	if (CHECK_FLAG (mbi->flags, 6))
-	{
+	if (CHECK_FLAG (mbi->flags, 6)) {
 		memory_map_t *mmap;
 
 		printf ("mmap_addr = 0x%#x, mmap_length = 0x%x\n",
@@ -160,11 +159,12 @@ void entry (unsigned long magic, unsigned long addr) {
 		ltr(KERNEL_TSS);
 	}
 
-	/* Init the PIC */
-	i8259_init();
-
 	/* Initialize devices, memory, filesystem, enable device interrupts on the
 	 * PIC, any other initialization stuff... */
+	printf("Initalizing PIC               ... ");
+	i8259_init();
+	printf("[ OK ]\n");
+
 	printf("Initalizing RTC               ... ");
 	rtc_init(RTC_SILENT);
 	printf("[ OK ]\n");
@@ -197,9 +197,6 @@ void entry (unsigned long magic, unsigned long addr) {
 	// splash_screen();
 
 	/* Enable interrupts */
-	/* Do not enable the following until after you have set up your
-	 * IDT correctly otherwise QEMU will triple fault and simple close
-	 * without showing you any output */
 	sti();
 
 	/* Enable paging */
@@ -211,7 +208,7 @@ void entry (unsigned long magic, unsigned long addr) {
 	/* Initialize filesystem */
 	fs_init(fs_start);
 
-	// Clear the screen for use
+	/* Clear the screen for use */
 	clear_screen();
 
 	/* Execute the first program (`shell') ... */
