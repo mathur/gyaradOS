@@ -6,6 +6,7 @@
 
 unsigned short lfsr = 0xACE1u;
 unsigned bit;
+uint32_t index = 0;
 
 unsigned rand() {
     bit  = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5) ) & 1;

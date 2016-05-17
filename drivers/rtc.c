@@ -111,8 +111,6 @@ void rtc_handle_interrupt(void) {
 		/* Do nothing */
 	} else if (init_mode == RTC_VERBOSE) {
 		printf("RTC Interrupt!\n");
-	} else {
-		test_interrupts();
 	}
 	// Send PIC EOI
 	send_eoi(IRQ_RTC);

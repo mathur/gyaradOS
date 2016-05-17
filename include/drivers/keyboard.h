@@ -3,6 +3,7 @@
 
 #include <drivers/i8259.h>
 #include <lib/lib.h>
+#include <lib/graphics.h>
 #include <kernel/syscall.h>
 
 // Keyboard port

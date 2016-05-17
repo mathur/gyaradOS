@@ -2,6 +2,11 @@
 #define _GRAPHICS_H
 
 #include <lib/types.h>
+#include <lib/lib.h>
+#include <drivers/keyboard.h>
+#include <drivers/rtc.h>
+#include <drivers/speaker.h>
+#include <mm/paging.h>
 
 #define VIDEO 0xB8000
 #define NUM_COLS 80
