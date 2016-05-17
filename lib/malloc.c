@@ -44,6 +44,10 @@ malloc_block * get_free_block(uint32_t size) {
     return curr_block;
 }
 
+malloc_block * get_block_pointer(uint32_t ptr) {
+    return (malloc_block *) ptr - 1;
+}
+
 void * malloc(uint32_t size) {
     if(size <= 0) {
         return NULL;
@@ -54,8 +58,47 @@ void * malloc(uint32_t size) {
         return NULL;
     }
 
-    block->size = size;
     block->free = 0;
 
     return (block + 1);
+}
+
+void * realloc(void * ptr, uint32_t size) {
+    if(ptr == NULL) {
+        return malloc(size);
+    }
+
+    malloc_block * block = get_block_pointer(ptr);
+
+    if(block->size >= size) {
+        return ptr;
+    }
+
+    void * new_ptr = malloc(size);
+    memcpy(new_ptr, ptr, block->size);
+    free(ptr);
+    return new_ptr;
+}
+
+// void * calloc(uint32_t nelem, uint32_t elsize) {
+//     uint32_t size = nelem * elsize;
+//     void * ptr = malloc(size);
+
+//     void * curr_ptr = ptr;
+//     while(size > 0) {
+//         *(curr_ptr) = 0;
+//         curr_ptr++;
+//         size--;
+//     }
+
+//     return ptr;
+// }
+
+void free(uint32_t ptr) {
+    if(ptr == NULL) {
+        return;
+    }
+
+    malloc_block * block = get_block_pointer(ptr);
+    block->free = 1;
 }
