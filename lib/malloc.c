@@ -80,19 +80,12 @@ void * realloc(void * ptr, uint32_t size) {
     return new_ptr;
 }
 
-// void * calloc(uint32_t nelem, uint32_t elsize) {
-//     uint32_t size = nelem * elsize;
-//     void * ptr = malloc(size);
-
-//     void * curr_ptr = ptr;
-//     while(size > 0) {
-//         *(curr_ptr) = 0;
-//         curr_ptr++;
-//         size--;
-//     }
-
-//     return ptr;
-// }
+void * calloc(uint32_t nelem, uint32_t elsize) {
+    uint32_t size = nelem * elsize;
+    void * ptr = malloc(size);
+    memset(ptr, 0, size);
+    return ptr;
+}
 
 void free(uint32_t ptr) {
     if(ptr == NULL) {
