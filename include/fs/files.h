@@ -3,6 +3,7 @@
 
 #include <lib/types.h>
 #include <lib/lib.h>
+#include <kernel/syscall.h>
 
 #define BOOT_BLOCK_SIZE 64
 #define DENTRY_SIZE 64
@@ -21,7 +22,7 @@ inode_t* get_inode(uint32_t inode_num);
 /* filesystem functions */
 void fs_init(uint32_t addrs);
 int32_t fs_write(int32_t fd, const uint8_t * buf, int32_t nbytes);
-int32_t fs_read(file_array* fd, uint8_t * buf, int32_t nbytes);
+int32_t fs_read(file_array * fd, uint8_t * buf, int32_t nbytes);
 int32_t fs_open(const uint8_t* filename);
 int32_t fs_close(void);
 char * autocomplete_command(char * curr_text);

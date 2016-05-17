@@ -1,4 +1,3 @@
-
 #ifndef _SYSCALL_H
 #define _SYSCALL_H
 
@@ -68,6 +67,7 @@ extern int32_t getargs (uint8_t * buf, int32_t nbytes);
 extern int32_t vidmap (uint8_t ** screen_start);
 extern int32_t set_handler (int32_t signum, void * handler_address);
 extern int32_t sigreturn (void);
+void * sbrk(uint32_t nbytes);
 
 extern void set_running_proc(uint8_t dest);
 extern pcb_t * get_pcb(int32_t term);

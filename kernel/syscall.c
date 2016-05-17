@@ -17,13 +17,13 @@ static func_ptr rtc_ops_table[4] = {rtc_open, rtc_read, rtc_write, rtc_close};
 static func_ptr dir_ops_table[4] = {dir_open, dir_read, dir_write, dir_close};
 static func_ptr files_ops_table[4] = {fs_open, fs_read, fs_write, fs_close};
 
+uint32_t g_status = 0;
+
 /**
  * [halts the current process and jumps back to shell or previous process]
  * @param  status [Status of the program being called]
  * @return        [0 on success, -1 on fail]
  */
-uint32_t g_status = 0;
-
 int32_t halt (uint8_t status) {
     unsigned long flags;
     cli_and_save(flags);
@@ -445,6 +445,23 @@ int32_t set_handler (int32_t signum, void * handler_address) {
  */
 int32_t sigreturn (void) {
     return 0;
+}
+
+void * sbrk(uint32_t nbytes) {
+    static void * heap_ptr = NULL;
+    void * base;
+
+    if (heap_ptr == NULL) {
+        heap_ptr = (void *)&_end;
+    }
+
+    if ((RAMSIZE - heap_ptr) >= 0) {
+        base = heap_ptr;
+        heap_ptr += nbytes;
+        return (base);
+    } else {
+        return ((void *)-1);
+    }
 }
 
 /**

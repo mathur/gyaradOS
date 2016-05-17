@@ -21,26 +21,26 @@ typedef unsigned short uint16_t;
 typedef char int8_t;
 typedef unsigned char uint8_t;
 
+typedef int32_t (*func_ptr)();
+
 typedef struct {
-	uint32_t file_size;
-	uint32_t blocks[1023];
+    uint32_t file_size;
+    uint32_t blocks[1023];
 } inode_t;
 
 typedef struct {
-	int8_t file_name[32];
-	uint32_t file_type;
-	uint32_t inode_num;
-	uint8_t blocks_reserved[24];
+    int8_t file_name[32];
+    uint32_t file_type;
+    uint32_t inode_num;
+    uint8_t blocks_reserved[24];
 } dentry_t;
 
 typedef struct {
-	uint32_t n_dentries;
-	uint32_t n_inodes;
-	uint32_t n_data_blocks;
-	uint8_t blocks_reserved[52];
+    uint32_t n_dentries;
+    uint32_t n_inodes;
+    uint32_t n_data_blocks;
+    uint8_t blocks_reserved[52];
 } boot_block;
-
-typedef int32_t (*func_ptr)();
 
 typedef struct {
     func_ptr * operations_pointer;
@@ -96,6 +96,12 @@ typedef union PTE {
         uint32_t page_base : 20;
     }__attribute__((packed)) PTE_bits;   
 } PTE_t;
+
+typedef struct {
+    uint8_t free;
+    uint32_t size;
+    struct malloc_block *next;
+} malloc_block;
 
 #endif /* ASM */
 
