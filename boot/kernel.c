@@ -194,7 +194,7 @@ void entry (unsigned long magic, unsigned long addr) {
 	printf("[ OK ]\n");
 
 	/* Display the splash screen */
-	// splash_screen();
+	splash_screen();
 
 	/* Enable interrupts */
 	sti();

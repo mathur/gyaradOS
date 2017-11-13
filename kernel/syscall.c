@@ -447,23 +447,6 @@ int32_t sigreturn (void) {
     return 0;
 }
 
-void * sbrk(uint32_t nbytes) {
-    static void * heap_ptr = NULL;
-    void * base;
-
-    if (heap_ptr == NULL) {
-        heap_ptr = (void *)&_end;
-    }
-
-    if ((RAMSIZE - heap_ptr) >= 0) {
-        base = heap_ptr;
-        heap_ptr += nbytes;
-        return (base);
-    } else {
-        return ((void *)-1);
-    }
-}
-
 /**
  * [get_pcb retrieves the pcb based on the specified terminal]
  * @param  term [the terminal for the desired pcb]

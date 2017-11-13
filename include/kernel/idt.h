@@ -5,7 +5,6 @@
 #include <drivers/keyboard.h>
 #include <drivers/i8259.h>
 #include <drivers/mouse.h>
-#include <drivers/sound_blaster_16.h>
 #include <kernel/irq.h>
 #include <lib/lib.h>
 #include <boot/x86_desc.h>
@@ -16,7 +15,6 @@
 #define KEYBOARD_IDT   0x21
 #define RTC_IDT        0x28
 #define MOUSE_IDT	   0x2C
-#define SB_IDT         0x25
 #define SYSCALL_IDT    0x80
 
 // 0 - Division by zero exception

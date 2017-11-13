@@ -614,31 +614,6 @@ mouse_irq:
     iret
 
 /*
- * sb_irq()
- *
- * Description: Calls the mouse handler function and then exits the interrupt cleanly using iret
- * Inputs: none
- * Outputs: none
- * Returns: none
- */
-sb_irq:
-    // save caller saved registers
-    pushl %eax
-    pushl %ecx
-    pushl %edx
-
-    // call the function
-    call sound_balster_irq_handler
-
-    // restore caller saved registers
-    popl %edx
-    popl %ecx
-    popl %eax
-
-    // return to the interrupt handler
-    iret
-
-/*
  * general_irq()
  *
  * Description: Calls the general interrupt handler function and then exits the interrupt cleanly using iret

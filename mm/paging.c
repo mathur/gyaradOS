@@ -7,7 +7,7 @@
  */
 void init_paging() {
 	int i;
-    
+
 	/* Disabling the 4kb pages in the first 4MB of the PD by setting the pages to be
      * Supervisor privilege, Read/Write, not present
      */
@@ -28,20 +28,20 @@ void init_paging() {
     //enabling the present and read/write and user bit for the video memory at physical location 0xB8000
 	pageTable1[VIDEO/PAGE_SIZE].PTE_bits.present = 1;
 	pageTable1[VIDEO/PAGE_SIZE].PTE_bits.read_write = 1;
-	pageTable1[VIDEO/PAGE_SIZE].PTE_bits.user_super = 1; 
+	pageTable1[VIDEO/PAGE_SIZE].PTE_bits.user_super = 1;
 
     //pages used to store the 3 terminals
     pageTable1[VIDEO_PHYS_ADDR0/PAGE_SIZE].PTE_bits.present = 1;
     pageTable1[VIDEO_PHYS_ADDR0/PAGE_SIZE].PTE_bits.read_write = 1;
-    pageTable1[VIDEO_PHYS_ADDR0/PAGE_SIZE].PTE_bits.user_super = 1; 
+    pageTable1[VIDEO_PHYS_ADDR0/PAGE_SIZE].PTE_bits.user_super = 1;
 
     pageTable1[VIDEO_PHYS_ADDR1/PAGE_SIZE].PTE_bits.present = 1;
     pageTable1[VIDEO_PHYS_ADDR1/PAGE_SIZE].PTE_bits.read_write = 1;
-    pageTable1[VIDEO_PHYS_ADDR1/PAGE_SIZE].PTE_bits.user_super = 1; 
+    pageTable1[VIDEO_PHYS_ADDR1/PAGE_SIZE].PTE_bits.user_super = 1;
 
     pageTable1[VIDEO_PHYS_ADDR2/PAGE_SIZE].PTE_bits.present = 1;
     pageTable1[VIDEO_PHYS_ADDR2/PAGE_SIZE].PTE_bits.read_write = 1;
-    pageTable1[VIDEO_PHYS_ADDR2/PAGE_SIZE].PTE_bits.user_super = 1; 
+    pageTable1[VIDEO_PHYS_ADDR2/PAGE_SIZE].PTE_bits.user_super = 1;
 
     for(i = 0; i < PAGE_DIRECTORY_SIZE; i++){
         //setting the rest of the pages to not be present, read/write, and supervisor privilege
@@ -72,7 +72,7 @@ void init_paging() {
 	pageDirectory[1].PDE_bits.read_write = 1;
 	pageDirectory[1].PDE_bits.user_super = 0;
 
-    //Enabling paging 
+    //Enabling paging
     asm volatile (
                     "mov %%eax, %%cr3 				\n" //moving the address of PD to cr3
                     "mov %%cr4, %%eax 				\n"
@@ -80,10 +80,10 @@ void init_paging() {
                     "mov %%eax, %%cr4				\n"
                     "mov %%cr0, %%eax				\n" //enabling the PG flag in CR0
                     "or  $0x80000000, %%eax			\n"
-                    "mov %%eax, %%cr0"				
-                    : /* no outputs */			
-                    : "a" (pageDirectory)			
-                 );		
+                    "mov %%eax, %%cr0"
+                    : /* no outputs */
+                    : "a" (pageDirectory)
+                 );
 }
 
 /* uint32_t init_new_process(uint32_t process_num)
@@ -107,7 +107,7 @@ uint32_t init_new_process(uint32_t process_num){
     //write to cr3
     asm volatile (
                     //moving the address of PD to cr3
-                    "mov %%eax, %%cr3               \n" 
+                    "mov %%eax, %%cr3               \n"
                     : /* no outputs */
                     : "a" (pageDirectory)
                  );
@@ -133,9 +133,9 @@ int switch_pd(uint8_t process_num, uint32_t prev_base) {
     //write to cr3
     asm volatile (
                     //moving the address of PD to cr3
-                    "mov %%eax, %%cr3               \n" 
-                    : /* no outputs */          
-                    : "a" (pageDirectory)           
+                    "mov %%eax, %%cr3               \n"
+                    : /* no outputs */
+                    : "a" (pageDirectory)
                  );
     return 0;
 }

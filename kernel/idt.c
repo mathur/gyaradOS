@@ -538,8 +538,6 @@ void init_idt() {
             SET_IDT_ENTRY(idt[RTC_IDT], rtc_irq);
         } else if(i == MOUSE_IDT) {
             SET_IDT_ENTRY(idt[MOUSE_IDT], mouse_irq);
-        } else if(i == SB_IDT) {
-            SET_IDT_ENTRY(idt[SB_IDT], sb_irq);
         } else if(i == SYSCALL_IDT) {
             SET_IDT_ENTRY(idt[SYSCALL_IDT], syscall_irq);
         } else {
