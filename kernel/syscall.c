@@ -86,7 +86,7 @@ int32_t halt (uint8_t status) {
 
     // reset the page entries
     switch_pd(prev_proc[curr_active_term]->proc_num, prev_proc[curr_active_term]->base);
-    tss.esp0 = _8MB - (_8KB) * prev_proc[curr_active_term]->proc_num - 4;
+    tss.esp0 = _8MB - (_8KB) * prev_proc[curr_active_term]->proc_num;
 
     // swap the pcbs correctly
     curr_proc[curr_active_term] = prev_proc[curr_active_term];
@@ -229,7 +229,7 @@ int32_t execute (const uint8_t * command) {
     }
 
     // Set TSS Value
-    tss.esp0 = _8MB - (_8KB) * curr_proc_id - 4;
+    tss.esp0 = _8MB - (_8KB) * curr_proc_id;
 
     // Open STDIN
     proc_ctrl_blk->fds[0].operations_pointer = stdin_ops_table;

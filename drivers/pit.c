@@ -127,7 +127,7 @@ void context_switch(uint8_t curr_proc_term_num, uint8_t next_proc_term_num) {
         switch_pd(next_proc->proc_num, next_proc->base);
 
         // set the esp0 to the correct one for the next process
-        tss.esp0 = _8MB - (_8KB) * (next_proc->proc_num) - 4;
+        tss.esp0 = _8MB - (_8KB) * (next_proc->proc_num);
 
         // stack switch
         asm volatile("movl %0, %%esp"::"g"(next_proc->p_sched_ksp));
